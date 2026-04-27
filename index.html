@@ -18,6 +18,12 @@
             height: 100vh;
             background-color: #000;
             background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 150px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 250px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 320px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 200px, rgba(255,255,255,0.6), rgba(0,0,0,0));
             background-size: 500px 500px;
             display: flex;
             justify-content: center;
@@ -29,14 +35,13 @@
 
         /* --- CONTENITORE A3 CENTRALE --- */
         .a3-poster {
-            height: 94vh; /* Prende quasi tutta l'altezza dello schermo */
-            aspect-ratio: 297 / 420; /* PROPORZIONE ESATTA A3 */
+            height: 94vh;
+            aspect-ratio: 297 / 420;
             background-color: var(--teal);
             position: relative;
             display: flex;
             flex-direction: column;
             overflow: hidden;
-            /* Bordo per staccarlo dallo sfondo stellato */
             box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 0 2px #333; 
         }
 
@@ -144,26 +149,33 @@
             margin: 2px;
         }
 
-        .main-title {
-            font-size: 28px;
-            margin: 0 0 15px 0;
-            color: #000;
-        }
-
-        .sub-title {
-            font-size: 15px;
-            margin-bottom: 30px;
-        }
-
+        /* --- NUOVA GERARCHIA TESTI RICHIESTA DAL MANAGER --- */
         .info-box {
             background: #fff;
             border: 3px solid;
             border-color: #555 #fff #fff #555;
-            padding: 15px;
-            font-size: 20px;
-            color: #000;
+            padding: 20px 10px;
             margin-bottom: 25px;
-            line-height: 1.5;
+        }
+
+        .main-title {
+            font-size: 34px;
+            margin: 0;
+            color: #000;
+            letter-spacing: -1px;
+        }
+
+        .sub-title {
+            font-size: 16px;
+            margin-bottom: 20px;
+            color: #000;
+        }
+
+        .details-text {
+            font-size: 20px;
+            font-weight: bold;
+            color: #000;
+            margin-bottom: 10px;
         }
 
         .btn-ok {
@@ -175,9 +187,10 @@
             font-size: 18px;
             box-shadow: 2px 2px 0 #000;
             cursor: pointer;
+            margin-top: 20px;
         }
 
-        /* --- TASKBAR (FISSATA IN BASSO DELL'A3) --- */
+        /* --- TASKBAR --- */
         .taskbar {
             height: 45px;
             background: var(--win-gray);
@@ -237,13 +250,14 @@
                     <span class="btn-close">X</span>
                 </div>
                 <div class="content">
-                    <h1 class="main-title">STUDIOMURENA.NET</h1>
-                    <div class="sub-title">A SPECIAL JOURNEY WITH FRIENDS</div>
                     
                     <div class="info-box">
-                        18.06.2026<br>
-                        CIRCOLO MAGNOLIA
+                        <h1 class="main-title">STUDIOMURENA.NET</h1>
                     </div>
+
+                    <div class="sub-title">A SPECIAL JOURNEY WITH FRIENDS</div>
+                    <div class="details-text">18.06.2026</div>
+                    <div class="details-text" style="margin-bottom: 15px;">CIRCOLO MAGNOLIA</div>
 
                     <button class="btn-ok">OK</button>
                 </div>

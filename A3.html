@@ -1,0 +1,268 @@
+<!DOCTYPE html>
+<html lang="it">
+<head>
+    <meta charset="UTF-8">
+    <style>
+        /* Font Pixel stile BIOS/DOS */
+        @import url('https://fonts.cdnfonts.com/css/vga-437');
+
+        :root {
+            --teal: #008080;
+            --win-gray: #c0c0c0;
+            --win-blue: #000080;
+        }
+
+        /* --- SFONDO ESTERNO (STELLATO) --- */
+        body {
+            margin: 0;
+            height: 100vh;
+            background-color: #000;
+            background-image: 
+                radial-gradient(1px 1px at 20px 30px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 90px 80px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 150px 150px, rgba(255,255,255,0.8), rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 250px 60px, #fff, rgba(0,0,0,0)),
+                radial-gradient(1px 1px at 320px 120px, #fff, rgba(0,0,0,0)),
+                radial-gradient(2px 2px at 400px 200px, rgba(255,255,255,0.6), rgba(0,0,0,0));
+            background-size: 500px 500px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            overflow: hidden;
+            font-family: 'VGA 437', monospace;
+            user-select: none;
+        }
+
+        /* --- CONTENITORE A3 CENTRALE --- */
+        .a3-poster {
+            height: 94vh; /* Prende quasi tutta l'altezza dello schermo */
+            aspect-ratio: 297 / 420; /* PROPORZIONE ESATTA A3 */
+            background-color: var(--teal);
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            overflow: hidden;
+            /* Bordo per staccarlo dallo sfondo stellato */
+            box-shadow: 0 0 40px rgba(0,0,0,0.9), 0 0 0 2px #333; 
+        }
+
+        /* --- TEXTURE CRT (SOLO DENTRO L'A3) --- */
+        .a3-poster::before {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: linear-gradient(rgba(18, 16, 16, 0) 50%, rgba(0, 0, 0, 0.25) 50%), 
+                        linear-gradient(90deg, rgba(255, 0, 0, 0.04), rgba(0, 255, 0, 0.02), rgba(0, 0, 255, 0.04));
+            background-size: 100% 4px, 4px 100%;
+            z-index: 100;
+            pointer-events: none;
+        }
+
+        .a3-poster::after {
+            content: " ";
+            position: absolute;
+            top: 0; left: 0; width: 100%; height: 100%;
+            background: radial-gradient(circle, transparent 40%, rgba(0,0,0,0.6) 100%);
+            z-index: 101;
+            pointer-events: none;
+            animation: flicker 0.15s infinite;
+        }
+
+        @keyframes flicker {
+            0% { opacity: 0.98; }
+            50% { opacity: 1; }
+            100% { opacity: 0.99; }
+        }
+
+        /* --- CONTENUTO DESKTOP --- */
+        .desktop {
+            flex-grow: 1;
+            position: relative;
+            padding: 25px;
+            z-index: 10;
+        }
+
+        .icons-container {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+            width: 80px;
+        }
+
+        .icon {
+            text-align: center;
+            color: white;
+            font-size: 14px;
+            text-shadow: 1px 1px #000;
+        }
+
+        .icon-art {
+            font-size: 38px;
+            margin-bottom: 6px;
+            display: block;
+        }
+
+        /* --- FINESTRA DI WARNING --- */
+        .window {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: var(--win-gray);
+            border: 3px solid;
+            border-color: #fff #555 #555 #fff;
+            box-shadow: 4px 4px 0 #000;
+            width: 85%;
+            max-width: 480px;
+            padding: 3px;
+        }
+
+        .title-bar {
+            background: var(--win-blue);
+            color: white;
+            padding: 5px 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .title-text {
+            font-size: 18px;
+            letter-spacing: 1px;
+        }
+
+        .btn-close {
+            background: var(--win-gray);
+            border: 2px solid;
+            border-color: #fff #555 #555 #fff;
+            color: black;
+            font-weight: bold;
+            padding: 0 6px;
+            font-size: 16px;
+            cursor: pointer;
+        }
+
+        .content {
+            padding: 35px 20px;
+            text-align: center;
+            border: 3px solid;
+            border-color: #555 #fff #fff #555;
+            margin: 2px;
+        }
+
+        .main-title {
+            font-size: 28px;
+            margin: 0 0 15px 0;
+            color: #000;
+        }
+
+        .sub-title {
+            font-size: 15px;
+            margin-bottom: 30px;
+        }
+
+        .info-box {
+            background: #fff;
+            border: 3px solid;
+            border-color: #555 #fff #fff #555;
+            padding: 15px;
+            font-size: 20px;
+            color: #000;
+            margin-bottom: 25px;
+            line-height: 1.5;
+        }
+
+        .btn-ok {
+            background: var(--win-gray);
+            border: 3px solid;
+            border-color: #fff #555 #555 #fff;
+            padding: 8px 35px;
+            font-family: inherit;
+            font-size: 18px;
+            box-shadow: 2px 2px 0 #000;
+            cursor: pointer;
+        }
+
+        /* --- TASKBAR (FISSATA IN BASSO DELL'A3) --- */
+        .taskbar {
+            height: 45px;
+            background: var(--win-gray);
+            border-top: 3px solid #fff;
+            display: flex;
+            align-items: center;
+            padding: 0 8px;
+            z-index: 10;
+        }
+
+        .start-btn {
+            background: var(--win-gray);
+            border: 3px solid;
+            border-color: #fff #555 #555 #fff;
+            padding: 4px 12px;
+            font-size: 18px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+            box-shadow: 2px 2px 0 #000;
+        }
+
+        .task-slot {
+            margin: 0 12px;
+            border: 3px solid;
+            border-color: #555 #fff #fff #555;
+            flex-grow: 1;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            padding-left: 12px;
+            font-size: 16px;
+        }
+
+        .clock {
+            border: 3px solid;
+            border-color: #555 #fff #fff #555;
+            padding: 4px 12px;
+            font-size: 16px;
+        }
+    </style>
+</head>
+<body>
+
+    <div class="a3-poster">
+        
+        <div class="desktop">
+            <div class="icons-container">
+                <div class="icon"><span class="icon-art">📁</span>MURENA</div>
+                <div class="icon"><span class="icon-art">💿</span>JAZZCORE</div>
+                <div class="icon"><span class="icon-art">🗑️</span>CESTINO</div>
+            </div>
+
+            <div class="window">
+                <div class="title-bar">
+                    <span class="title-text">⚠️ WARNING: HOT_MUSIC.EXE</span>
+                    <span class="btn-close">X</span>
+                </div>
+                <div class="content">
+                    <h1 class="main-title">STUDIOMURENA.NET</h1>
+                    <div class="sub-title">A SPECIAL JOURNEY WITH FRIENDS</div>
+                    
+                    <div class="info-box">
+                        18.06.2026<br>
+                        CIRCOLO MAGNOLIA
+                    </div>
+
+                    <button class="btn-ok">OK</button>
+                </div>
+            </div>
+        </div>
+
+        <div class="taskbar">
+            <div class="start-btn">🪟 START</div>
+            <div class="task-slot">WARNING: HOT_MUSIC.EXE</div>
+            <div class="clock">18:06</div>
+        </div>
+
+    </div>
+
+</body>
+</html>
